@@ -1,0 +1,40 @@
+{
+  "tests": [
+    {
+      "name": "CalculateSum_WithEmptyArray_ReturnsZero",
+      "setup": "",
+      "run": "dotnet test --filter \"FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithEmptyArray_ReturnsZero\"",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "points": 1
+    },
+    {
+      "name": "CalculateSum_WithSingleElement_ReturnsElementValue",
+      "setup": "",
+      "run": "dotnet test --filter \"FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithSingleElement_ReturnsElementValue\"",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "points": 1
+    },
+    {
+      "name": "CalculateSum_WithMultipleElements_ReturnsCorrectSum",
+      "setup": "",
+      "run": "dotnet test --filter \"FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithMultipleElements_ReturnsCorrectSum\"",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "points": 1
+    },
+    {
+      "name": "CalculateSum_WithLargeArray_ReturnsCorrectSum",
+      "setup": "",
+      "run": "dotnet test --filter \"FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithLargeArray_ReturnsCorrectSum\"",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "points": 1
+    }
+  ]
+}
