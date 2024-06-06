@@ -1,4 +1,4 @@
-name: .NET
+nname: .NET
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build_and_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,35 +25,62 @@ jobs:
     - name: Build the project
       run: dotnet build --no-restore
 
-    - name: Run tests
+    - name: Run all tests
       run: dotnet test --no-build --verbosity normal
 
   autograding:
-    name: Run autograding tests
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '7.0.x' # Ajusta la versió segons sigui necessari
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.0.x' # Ajusta la versió segons sigui necessari
 
-      - name: Restore dependencies
-        run: dotnet restore
+    - name: Restore dependencies
+      run: dotnet restore
 
-      - name: Build the project
-        run: dotnet build --no-restore
+    - name: Build the project
+      run: dotnet build --no-restore
 
-      - name: Run CalculateSum_WithEmptyArray_ReturnsZero test
-        run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithEmptyArray_ReturnsZero"
+    - name: Run CalculateSum_WithEmptyArray_ReturnsZero test
+      run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithEmptyArray_ReturnsZero"
+      id: test_empty_array
+      continue-on-error: true
 
-      - name: Run CalculateSum_WithSingleElement_ReturnsElementValue test
-        run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithSingleElement_ReturnsElementValue"
+    - name: Run CalculateSum_WithSingleElement_ReturnsElementValue test
+      run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithSingleElement_ReturnsElementValue"
+      id: test_single_element
+      continue-on-error: true
+    
+    - name: Run CalculateSum_WithMultipleElements_ReturnsCorrectSum test
+      run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithMultipleElements_ReturnsCorrectSum"
+      id: test_multiple_elements
+      continue-on-error: true
 
-      - name: Run CalculateSum_WithMultipleElements_ReturnsCorrectSum test
-        run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithMultipleElements_ReturnsCorrectSum"
+    - name: Run CalculateSum_WithLargeArray_ReturnsCorrectSum test
+      run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithLargeArray_ReturnsCorrectSum"
+      id: test_large_array
+      continue-on-error: true
 
-      - name: Run CalculateSum_WithLargeArray_ReturnsCorrectSum test
-        run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithLargeArray_ReturnsCorrectSum"
+    - name: Calculate grades
+      run: |
+        errors=0
+        for id in test_empty_array test_single_element test_multiple_elements test_large_array; do
+          if [ "${{ steps.${id}.outcome }}" == "failure" ]; then
+            errors=$((errors + 1))
+          fi
+        done
+
+        total_tests=4
+        passed_tests=$((total_tests - errors))
+        points_per_test=1
+        score=$((passed_tests * points_per_test))
+
+        echo "score=$score" >> $GITHUB_ENV
+
+    - name: Upload grade
+      run: echo "Grade: ${{ env.score }} / 4"
