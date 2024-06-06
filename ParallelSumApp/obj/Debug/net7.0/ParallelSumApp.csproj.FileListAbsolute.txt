@@ -1,0 +1,15 @@
+/Users/jordic/Desktop/TestActions/ParallelSumApp/bin/Debug/net7.0/ParallelSumApp
+/Users/jordic/Desktop/TestActions/ParallelSumApp/bin/Debug/net7.0/ParallelSumApp.deps.json
+/Users/jordic/Desktop/TestActions/ParallelSumApp/bin/Debug/net7.0/ParallelSumApp.runtimeconfig.json
+/Users/jordic/Desktop/TestActions/ParallelSumApp/bin/Debug/net7.0/ParallelSumApp.dll
+/Users/jordic/Desktop/TestActions/ParallelSumApp/bin/Debug/net7.0/ParallelSumApp.pdb
+/Users/jordic/Desktop/TestActions/ParallelSumApp/obj/Debug/net7.0/ParallelSumApp.csproj.AssemblyReference.cache
+/Users/jordic/Desktop/TestActions/ParallelSumApp/obj/Debug/net7.0/ParallelSumApp.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jordic/Desktop/TestActions/ParallelSumApp/obj/Debug/net7.0/ParallelSumApp.AssemblyInfoInputs.cache
+/Users/jordic/Desktop/TestActions/ParallelSumApp/obj/Debug/net7.0/ParallelSumApp.AssemblyInfo.cs
+/Users/jordic/Desktop/TestActions/ParallelSumApp/obj/Debug/net7.0/ParallelSumApp.csproj.CoreCompileInputs.cache
+/Users/jordic/Desktop/TestActions/ParallelSumApp/obj/Debug/net7.0/ParallelSumApp.dll
+/Users/jordic/Desktop/TestActions/ParallelSumApp/obj/Debug/net7.0/refint/ParallelSumApp.dll
+/Users/jordic/Desktop/TestActions/ParallelSumApp/obj/Debug/net7.0/ParallelSumApp.pdb
+/Users/jordic/Desktop/TestActions/ParallelSumApp/obj/Debug/net7.0/ParallelSumApp.genruntimeconfig.cache
+/Users/jordic/Desktop/TestActions/ParallelSumApp/obj/Debug/net7.0/ref/ParallelSumApp.dll

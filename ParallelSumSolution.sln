@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParallelSumApp", "ParallelSumApp\ParallelSumApp.csproj", "{D33A535C-BC43-4078-8347-FEBAAE8460AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParallelSumTests", "ParallelSumTests\ParallelSumTests.csproj", "{2FD3A3C3-DB43-4801-9BD7-486BC58C9F32}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D33A535C-BC43-4078-8347-FEBAAE8460AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D33A535C-BC43-4078-8347-FEBAAE8460AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D33A535C-BC43-4078-8347-FEBAAE8460AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D33A535C-BC43-4078-8347-FEBAAE8460AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FD3A3C3-DB43-4801-9BD7-486BC58C9F32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FD3A3C3-DB43-4801-9BD7-486BC58C9F32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FD3A3C3-DB43-4801-9BD7-486BC58C9F32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FD3A3C3-DB43-4801-9BD7-486BC58C9F32}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
