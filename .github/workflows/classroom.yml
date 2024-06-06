@@ -31,4 +31,4 @@ jobs:
         run: dotnet build --no-restore
 
       - name: Run tests
-        uses: education/autograding@v1
+        run: dotnet test
