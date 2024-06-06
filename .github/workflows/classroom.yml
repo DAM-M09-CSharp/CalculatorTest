@@ -11,78 +11,84 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '7.0.x' # Ajusta la versió segons sigui necessari
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x' # Ajusta la versió segons sigui necessari
 
-    - name: Restore dependencies
-      run: dotnet restore
+      - name: Restore dependencies
+        run: dotnet restore
 
-    - name: Build the project
-      run: dotnet build --no-restore
+      - name: Build the project
+        run: dotnet build --no-restore
 
-    - name: Run all tests
-      run: dotnet test --no-build --verbosity normal
+      - name: Run all tests
+        run: dotnet test --no-build --verbosity normal
 
   autograding:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '7.0.x' # Ajusta la versió segons sigui necessari
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x' # Ajusta la versió segons sigui necessari
 
-    - name: Restore dependencies
-      run: dotnet restore
+      - name: Restore dependencies
+        run: dotnet restore
 
-    - name: Build the project
-      run: dotnet build --no-restore
+      - name: Build the project
+        run: dotnet build --no-restore
 
-    - name: Run CalculateSum_WithEmptyArray_ReturnsZero test
-      id: test_empty_array
-      run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithEmptyArray_ReturnsZero"
-      continue-on-error: true
+      - name: Run CalculateSum_WithEmptyArray_ReturnsZero test
+        id: test_empty_array
+        run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithEmptyArray_ReturnsZero"
+        continue-on-error: true
 
-    - name: Run CalculateSum_WithSingleElement_ReturnsElementValue test
-      id: test_single_element
-      run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithSingleElement_ReturnsElementValue"
-      continue-on-error: true
-    
-    - name: Run CalculateSum_WithMultipleElements_ReturnsCorrectSum test
-      id: test_multiple_elements
-      run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithMultipleElements_ReturnsCorrectSum"
-      continue-on-error: true
+      - name: Run CalculateSum_WithSingleElement_ReturnsElementValue test
+        id: test_single_element
+        run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithSingleElement_ReturnsElementValue"
+        continue-on-error: true
 
-    - name: Run CalculateSum_WithLargeArray_ReturnsCorrectSum test
-      id: test_large_array
-      run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithLargeArray_ReturnsCorrectSum"
-      continue-on-error: true
+      - name: Run CalculateSum_WithMultipleElements_ReturnsCorrectSum test
+        id: test_multiple_elements
+        run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithMultipleElements_ReturnsCorrectSum"
+        continue-on-error: true
 
-    - name: Calculate grades
-      id: calculate_grades
-      run: |
-        errors=0
-        for id in test_empty_array test_single_element test_multiple_elements test_large_array; do
-          if [ "${{ steps.${id}.outcome }}" == "failure" ]; then
+      - name: Run CalculateSum_WithLargeArray_ReturnsCorrectSum test
+        id: test_large_array
+        run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithLargeArray_ReturnsCorrectSum"
+        continue-on-error: true
+
+      - name: Calculate grades
+        id: calculate_grades
+        run: |
+          errors=0
+          if [ "${{ steps.test_empty_array.outcome }}" == "failure" ]; then
             errors=$((errors + 1))
           fi
-        done
+          if [ "${{ steps.test_single_element.outcome }}" == "failure" ]; then
+            errors=$((errors + 1))
+          fi
+          if [ "${{ steps.test_multiple_elements.outcome }}" == "failure" ]; then
+            errors=$((errors + 1))
+          fi
+          if [ "${{ steps.test_large_array.outcome }}" == "failure" ]; then
+            errors=$((errors + 1))
+          fi
 
-        total_tests=4
-        passed_tests=$((total_tests - errors))
-        points_per_test=1
-        score=$((passed_tests * points_per_test))
+          total_tests=4
+          passed_tests=$((total_tests - errors))
+          points_per_test=1
+          score=$((passed_tests * points_per_test))
 
-        echo "score=$score" >> $GITHUB_ENV
+          echo "score=$score" >> $GITHUB_ENV
 
-    - name: Upload grade
-      run: echo "Grade: ${{ env.score }} / 4"
-
+      - name: Upload grade
+        run: echo "Grade - ${{ env.score }} / 4"
