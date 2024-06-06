@@ -1,4 +1,4 @@
-nname: .NET
+name: .NET
 
 on:
   push:
@@ -47,26 +47,27 @@ jobs:
       run: dotnet build --no-restore
 
     - name: Run CalculateSum_WithEmptyArray_ReturnsZero test
-      run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithEmptyArray_ReturnsZero"
       id: test_empty_array
+      run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithEmptyArray_ReturnsZero"
       continue-on-error: true
 
     - name: Run CalculateSum_WithSingleElement_ReturnsElementValue test
-      run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithSingleElement_ReturnsElementValue"
       id: test_single_element
+      run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithSingleElement_ReturnsElementValue"
       continue-on-error: true
     
     - name: Run CalculateSum_WithMultipleElements_ReturnsCorrectSum test
-      run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithMultipleElements_ReturnsCorrectSum"
       id: test_multiple_elements
+      run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithMultipleElements_ReturnsCorrectSum"
       continue-on-error: true
 
     - name: Run CalculateSum_WithLargeArray_ReturnsCorrectSum test
-      run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithLargeArray_ReturnsCorrectSum"
       id: test_large_array
+      run: dotnet test --filter "FullyQualifiedName~ParallelSumTests.ParallelSumCalculatorTests.CalculateSum_WithLargeArray_ReturnsCorrectSum"
       continue-on-error: true
 
     - name: Calculate grades
+      id: calculate_grades
       run: |
         errors=0
         for id in test_empty_array test_single_element test_multiple_elements test_large_array; do
@@ -84,3 +85,4 @@ jobs:
 
     - name: Upload grade
       run: echo "Grade: ${{ env.score }} / 4"
+
