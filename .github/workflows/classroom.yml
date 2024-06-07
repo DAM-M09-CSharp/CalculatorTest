@@ -38,13 +38,23 @@ jobs:
           test-name: 'DOTNET tests'
           command: 'dotnet test'
           timeout: '15'
-          max-score: '100'
+          max-score: '50'
+
+      - name: DOTNET2 tests
+        id: dotnet2-test
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: 'DOTNET2 tests'
+          command: 'dotnet test'
+          timeout: '15'
+          max-score: '50'
 
       - name: Autograding Reporter
         uses: classroom-resources/autograding-grading-reporter@v1
         env:
-          TEXT-TEST_RESULTS: "${{steps.dotnet-test.outputs.result}}"
+          DOTNET-TEST_RESULTS: "${{steps.dotnet-test.outputs.result}}"
+          DOTNET2-TEST_RESULTS: "${{steps.dotnet2-test.outputs.result}}"
         with:
-          runners: dotnet-test
+          runners: dotnet-test, dotnet2-test
     
 
