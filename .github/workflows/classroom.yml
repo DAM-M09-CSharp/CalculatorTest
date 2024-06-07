@@ -1,4 +1,4 @@
-name: .NET
+name: Autograding Tests
 
 on:
   push:
@@ -15,9 +15,10 @@ jobs:
   autograding:
     runs-on: ubuntu-latest
 
+    if: github.actor != 'github-classroom[bot]'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
@@ -30,5 +31,19 @@ jobs:
       - name: Build the project
         run: dotnet build --no-restore
 
-      - name: Run tests
-        run: dotnet test
+      - name: DOTNET tests
+        id: dotnet-test
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: 'DOTNET tests'
+          command: 'dotnet test'
+          timeout: '15'
+          max-score: '100'
+        
+      - name: Autograding Reporter
+        uses: ./
+        env:
+          DOTNET-TEST_RESULTS: "${{steps.dotnet-test.outputs.result}}"
+        with:
+          runners: dotnet-test
+
