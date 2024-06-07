@@ -40,10 +40,5 @@ jobs:
           timeout: '15'
           max-score: '100'
         
-      - name: Autograding Reporter
-        uses: ./
-        env:
-          DOTNET-TEST_RESULTS: "${{steps.dotnet-test.outputs.result}}"
-        with:
-          runners: dotnet-test
+    
 
